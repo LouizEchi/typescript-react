@@ -42,3 +42,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+Install
+https://create-react-app.dev/
+1. npx create-react-app my-app --typescript
+2. npm install --save typescript @types/node @types/react @types/react-dom @types/jest @types/react-router-dom
+3. npm install --save react-router-dom
+4. npm install node-sass --save

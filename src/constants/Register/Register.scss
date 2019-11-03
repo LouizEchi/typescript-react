@@ -1,0 +1,63 @@
+#Register {
+
+    text-align: center;
+    position: fixed;
+    min-height: 80vh;
+    min-width: 60vh;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    //background-color: #353942;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px;
+    font-size: 16px;
+
+    .close {
+        text-align: right;
+        padding-right: 10px;
+        padding-bottom: 10px;
+
+        span {
+            cursor: pointer;
+        }
+    }
+
+    .logo {
+        padding: 10px;
+        img {
+            height: 20vh;
+        }
+    }
+
+    .login {
+        padding: 10px 10px 20px 10px;
+    }
+
+    .email, .password, .confirm {
+        padding: 6px;
+        text-align: left;
+        span {
+            margin-left: 5%;
+        }
+    }
+
+    .email {
+        margin-top: 40px;
+
+        input {
+            margin-left: 96px;
+        }
+    }
+
+    .password input {
+        margin-left: 70px;
+    }
+
+    .submit {
+        margin-top: 50px;
+        .wiw-button{
+            margin-left: 40%;
+        }
+    }
+}
