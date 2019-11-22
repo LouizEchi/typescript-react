@@ -1,28 +1,40 @@
 {
-    "compilerOptions": {
-        "allowJs": true,
-        "allowSyntheticDefaultImports": true,
-        "baseUrl": "./",
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "lib": ["es6", "dom"],
-        "module": "esnext",
-        "moduleResolution": "node",
-        "noImplicitAny": false,
-        "noUnusedLocals": true,
-        "outDir": "./dist",
-        "rootDir": "./src",
-        "rootDirs": ["src/**/*"],
-        "sourceMap": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "target": "es2017",
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": true
-    },
-    "extends": "./tsconfig.paths.json",
-    "exclude": ["node_modules", "**/*.test.ts", "__mocks__"],
-    "include": ["public/**/*", "src/**/*"]
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "rootDirs": [
+      "src/**/*"
+    ],
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2017",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "extends": "./tsconfig.paths.json",
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "__mocks__"
+  ],
+  "include": [
+    "public/**/*",
+    "src/**/*"
+  ]
 }

@@ -4,15 +4,11 @@ import { useRegister } from './states'
 
 import logo from '@assets/wiw-logo.png'
 
+
 import './styles.scss'
 
-// interface Credentials {
-//     email: string
-//     password: string
-//     confirm: string
-// }
+function Register() {
 
-function Register({ show, hide }: { show: any; hide: any }) {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirm, setConfirm] = useState<string>('')
@@ -35,59 +31,21 @@ function Register({ show, hide }: { show: any; hide: any }) {
     }
 
     return (
-        <div>
-            {show && (
-                <form onSubmit={handleSubmit}>
-                    <div id="Register" className="wiw-input">
-                        <div
-                            className="close"
-                            aria-label="Close"
-                            onClick={hide}
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </div>
-                        <div className="logo">
-                            <img src={logo} alt="logo" />
-                        </div>
-                        <div className="register">Register</div>
-                        <div className="email">
-                            <span>Email</span>
-                            <input
-                                name="email"
-                                type="email"
-                                value={email}
-                                onChange={e => setEmail(e.target.value)}
-                            />
-                        </div>
-                        <div className="password">
-                            <span>Password</span>
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                            />
-                        </div>
-                        <div className="confirm">
-                            <span>Confirm Password</span>
-                            <input
-                                id="confirm"
-                                name="confirm"
-                                type="confirm"
-                                value={confirm}
-                                onChange={e => setConfirm(e.target.value)}
-                            />
-                        </div>
-                        <div className="submit">
-                            <div className="wiw-button">
-                                {' '}
-                                <button>Submit</button>
-                            </div>
-                        </div>
+        <div id="Login">
+            <section className="section">
+                <div className="box">
+                        <div>
+                        <div><img src={logo} className="App-logo" alt="logo" /></div>
+                        <p>Register</p>
+                        <form onSubmit={handleSubmit}>
+                            <input className="input is-primary" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
+                            <input className="input is-primary" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
+                            <input className="input is-primary" type="confirm" value={confirm} onChange={e => setConfirm(e.target.value)} placeholder="Confirm" />
+                            <button className="button is-primary is-normal is-outlined is-rounded">Submit</button>
+                        </form>
                     </div>
-                </form>
-            )}
+                </div>
+            </section>
         </div>
     )
 }

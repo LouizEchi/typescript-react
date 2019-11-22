@@ -1,42 +1,36 @@
 import React from 'react'
 
-import logo from '@assets/wiw-logo.png'
+import { Link } from 'react-router-dom'
 
-import Login, { States as LoginState } from '@src/components/Login'
-import Register, { States as RegisterState } from '@src/components/Register'
+import Login from '@src/components/Login'
+import Register from '@src/components/Register'
 
 import './styles.scss'
 
+let showLogin = true;
+
 function LandingPage() {
-    const { showLogin, toggleLogin } = LoginState.useLogin()
-    const { showRegister, toggleRegister } = RegisterState.useRegister()
+
+    function setToggle(value) {
+        showLogin =  value === 'login' ? true : false;
+    }
 
     return (
         <div id="LandingPage">
             <header>
-                <button
-                    disabled={showRegister}
-                    className="login"
-                    onClick={toggleLogin}
-                >
-                    login
-                </button>
-                <button
-                    disabled={showLogin}
-                    className="register"
-                    onClick={toggleRegister}
-                >
-                    register
-                </button>
+                <div>{showLogin}</div>
+                <Link to="/" onClick={() => setToggle('login')}>Login</Link>
+                <Link to="/" onClick={() => setToggle('register')}>Register</Link>
             </header>
             <div className="body">
-                <img src={logo} className="App-logo" alt="logo" />
+                <section className="section">
+                    {showLogin ? <Login /> : <Register /> }
+
+                </section>
             </div>
             <footer>
                 <div>All rights reserve 2019</div>
             </footer>
-            <Login show={showLogin} hide={toggleLogin} />
-            <Register show={showRegister} hide={toggleRegister} />
         </div>
     )
 }
