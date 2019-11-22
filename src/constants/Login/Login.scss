@@ -1,16 +1,17 @@
 #Login {
     text-align: center;
     position: fixed;
-    min-height: 80vh;
-    min-width: 60vh;
+    min-height: auto;
+    height: 80vh;
+    min-width: auto;
+    width: 60vh;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    //background-color: #353942;
     background-color: #ffffff;
     color: #000000;
     padding: 10px;
-    font-size: 16px;
+    font-size: 14px;
 
     .close {
         text-align: right;
@@ -38,12 +39,12 @@
         text-align: left;
         span {
             margin-right: 10px;
-            margin-left: 18%;
+            margin-left: 10%;
         }
     }
 
     .email {
-        margin-top: 70px;
+        margin-top: 30px;
         input {
             margin-left: 38px;
         }
@@ -52,7 +53,7 @@
     .submit {
         margin-top: 50px;
         .wiw-button{
-            margin-left: 40%;
+            margin-left: 35%;
         }
     }
 }
