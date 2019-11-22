@@ -1,5 +1,4 @@
 #Register {
-
     text-align: center;
     position: fixed;
     height: auto;
@@ -29,7 +28,9 @@
         }
     }
 
-    .email, .password, .confirm {
+    .email,
+    .password,
+    .confirm {
         padding: 6px;
         text-align: left;
     }
@@ -49,7 +50,7 @@
     .submit {
         margin-top: 50px;
         text-align: center;
-        .wiw-button{
+        .wiw-button {
             margin-left: 33%;
         }
     }
