@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-// import Axios from 'axios'
+import { useLogin } from './states'
 
 import logo from '@assets/wiw-logo.png'
 
-import './Login.scss'
+import './styles.scss'
 
 export interface ILogin {
     show: boolean
@@ -14,18 +14,6 @@ function Login(login: ILogin) {
     const { show, hide } = login
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-
-    // function handleSubmit(event: any) {
-    //     event.preventDefault()
-
-    //     Axios.post('http://127.0.0.1:8000/login')
-    //         .then(response => {
-    //             console.log(response)
-    //         })
-    //         .catch(function(error) {
-    //             console.log(error)
-    //         })
-    // }
 
     return (
         <div>
@@ -68,6 +56,10 @@ function Login(login: ILogin) {
             )}
         </div>
     )
+}
+
+export const States = {
+    useLogin,
 }
 
 export default Login

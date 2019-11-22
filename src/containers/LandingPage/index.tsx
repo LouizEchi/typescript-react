@@ -2,17 +2,14 @@ import React from 'react'
 
 import logo from '@assets/wiw-logo.png'
 
-import Login from '@constants/Login/Login'
-import Register from '@constants/Register/Register'
+import Login, { States as LoginState } from '@src/components/Login'
+import Register, { States as RegisterState } from '@src/components/Register'
 
-import useLogin from '@constants/Login/useLogin'
-import useRegister from '@constants/Register/useRegister'
-
-import './LandingPage.scss'
+import './styles.scss'
 
 function LandingPage() {
-    const { showLogin, toggleLogin } = useLogin()
-    const { showRegister, toggleRegister } = useRegister()
+    const { showLogin, toggleLogin } = LoginState.useLogin()
+    const { showRegister, toggleRegister } = RegisterState.useRegister()
 
     return (
         <div id="LandingPage">

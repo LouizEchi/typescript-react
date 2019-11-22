@@ -1,10 +1,10 @@
 import Axios from 'axios'
 import React, { useState } from 'react'
+import { useRegister } from './states'
 
 import logo from '@assets/wiw-logo.png'
 
-import '../../index.scss'
-import './Register.scss'
+import './styles.scss'
 
 // interface Credentials {
 //     email: string
@@ -90,6 +90,10 @@ function Register({ show, hide }: { show: any; hide: any }) {
             )}
         </div>
     )
+}
+
+export const States = {
+    useRegister,
 }
 
 export default Register
