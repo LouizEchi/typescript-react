@@ -1,0 +1,33 @@
+defaultSeverity: error
+extends:
+    - 'tslint:latest'
+    - 'tslint-react'
+    - 'tslint-eslint-rules'
+    - 'tslint-config-prettier'
+rules:
+    interface-name: false
+    jsx-boolean-value: false
+    jsx-no-lambda: false
+    no-console: false
+    no-implicit-dependencies: false
+    no-string-literal: false
+    no-submodule-imports: false
+    no-var-requires: false
+    semicolon: false
+    quotemark: [true, 'single', 'jsx-double']
+    object-literal-sort-keys: [false]
+    ordered-imports:
+        [
+            true,
+            {
+                'import-sources-order': 'lowercase-first',
+                'named-imports-order': 'lowercase-first',
+            },
+        ]
+    triple-equals: [false]
+    variable-name: [false]
+linterOptions:
+    include:
+        - 'src/**/*.*'
+    exclude:
+        - 'node_modules/**/*'
