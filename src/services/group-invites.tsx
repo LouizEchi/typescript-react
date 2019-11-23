@@ -4,6 +4,7 @@ import Config from '@src/config'
 
 import { handleError } from './'
 import { IResponse } from './types'
+import { IGroup } from './groups'
 
 export interface IUser {
     id: number
@@ -12,29 +13,29 @@ export interface IUser {
     last_name: string
 }
 
-export interface IGroup {
+export interface IGroupInvite {
     id: number
 
-    group_name: string
+    user_id: IUser
 
-    created_at: Date
+    user_group_id: IGroup
 
-    updated_at?: Date
-
-    owner: IUser
-
-    members: IUser[]
+    status: string
 }
 
-export async function addGroupService(
-    group_name: string,
+export async function addGroupInviteService(
+    email: string,
+    user_group_id: number,
     token: string,
-): Promise<IResponse<IGroup[] | null>> {
+): Promise<IResponse<IGroupInvite[] | null>> {
     try {
-        const request: AxiosResponse<IResponse<IGroup[]>> = await Axios.post(
-            `${Config.Api}/user-groups`,
+        const request: AxiosResponse<IResponse<
+            IGroupInvite[]
+        >> = await Axios.post(
+            `${Config.Api}/user-group-invites`,
             {
-                group_name,
+                email,
+                user_group_id,
             },
             {
                 headers: {
@@ -50,13 +51,16 @@ export async function addGroupService(
     }
 }
 
-export async function removeGroupService(
+export async function removeGroupInviteService(
     id: number,
     token: string,
-): Promise<IResponse<IGroup[] | null>> {
+): Promise<IResponse<IGroupInvite[] | null>> {
     try {
-        const request: AxiosResponse<IResponse<IGroup[]>> = await Axios.delete(
-            `${Config.Api}/user-groups/${id}`,
+        const request: AxiosResponse<IResponse<
+            IGroupInvite[]
+        >> = await Axios.put(
+            `${Config.Api}/user-group-invites/cancel/${id}`,
+            {},
             {
                 headers: {
                     Authorization: token,
@@ -71,12 +75,15 @@ export async function removeGroupService(
     }
 }
 
-export async function listGroups(
+export async function retrieveGroupInvites(
+    group_id: number,
     token: string,
-): Promise<IResponse<IGroup[] | null>> {
+): Promise<IResponse<IGroupInvite[] | null>> {
     try {
-        const request: AxiosResponse<IResponse<IGroup[]>> = await Axios.get(
-            `${Config.Api}/user-groups`,
+        const request: AxiosResponse<IResponse<
+            IGroupInvite[]
+        >> = await Axios.get(
+            `${Config.Api}/user-group-invites/${group_id}/by-group-id`,
             {
                 headers: {
                     Authorization: token,

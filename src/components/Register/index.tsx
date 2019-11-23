@@ -28,7 +28,7 @@ function Register() {
             company,
         }
 
-        await API.post('/register', data).then(response => {
+        await API.post('/auth/register', data).then(response => {
             if (response.status === 200) {
                 setShowMessage(true)
                 setInterval(timer, 2000)

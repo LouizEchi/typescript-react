@@ -20,7 +20,10 @@ export interface ILoginError {
     }
 }
 function Login() {
-    const [cookie, setCookies, removeCookies] = useCookies([])
+    const [cookie, setCookies, removeCookies] = useCookies([
+        'Authorization',
+        'UserID',
+    ])
     const [submit, setSubmit] = useState<boolean>(false)
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -41,11 +44,19 @@ function Login() {
                 }
             }
 
-            removeCookies('Authorization')
-            setCookies('Authorization', `Bearer ${data.auth_token}`)
+            removeCookies('Authorization', {
+                path: '/',
+            })
+            setCookies('Authorization', `Bearer ${data.auth_token}`, {
+                path: '/',
+            })
 
-            removeCookies('UserID')
-            setCookies('UserID', data.user_id)
+            removeCookies('UserID', {
+                path: '/',
+            })
+            setCookies('UserID', data.user_id, {
+                path: '/',
+            })
 
             Alert(message || '', 'success')
             setErrors({})
@@ -62,7 +73,7 @@ function Login() {
     }
 
     React.useEffect(() => {
-        if (login_state || cookie['Authorization']) {
+        if (login_state && cookie['Authorization']) {
             window.location.assign('/Dashboard/Event')
         }
 
