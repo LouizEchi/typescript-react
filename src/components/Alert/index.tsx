@@ -16,6 +16,7 @@ function Alert(message: string, type: string, options: ToastOptions = {}) {
             break
         case 'info':
             toast.info(message, options)
+            break
         default:
             toast(message, options)
     }
