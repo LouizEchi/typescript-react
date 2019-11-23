@@ -6,7 +6,7 @@
 
     .btn-container {
         margin: auto;
-        padding: 1.1rem 0 0 0;
+        padding: 1.2rem 0 0 0;
     }
 
     .group-list {
@@ -18,8 +18,15 @@
         }
 
         .group-label {
-            margin: 0.5rem;
-            font-weight: 800;
+            > label {
+                margin: 0.5rem;
+                font-weight: 800;
+            }
+
+            span {
+                font-weight: 400;
+                text-transform: capitalize;
+            }
         }
     }
 }
