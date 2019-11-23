@@ -3,7 +3,7 @@ import { Form, InputProps } from 'react-bulma-components'
 
 import './styles.scss'
 
-interface IFieldError {
+export interface IFieldError {
     message: string
 }
 
@@ -21,6 +21,7 @@ function Input(props: IInputProps) {
     if (props.icon) {
         control_class.push('has-icons-left')
     }
+
     return (
         <div className="wiw-field field">
             {props.field_error && props.field_error.message ? (
