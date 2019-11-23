@@ -11,8 +11,14 @@ import {
     addGroupService,
     listGroups,
     removeGroupService,
-    retrieveGroupInvites,
 } from '@src/services/groups'
+
+import {
+    IGroupInvite,
+    addGroupInviteService,
+    retrieveGroupInvites,
+    removeGroupInviteService,
+} from '@src/services/group-invites'
 
 import './styles.scss'
 
@@ -53,16 +59,28 @@ import './styles.scss'
 //     )
 // }
 
+function renderEmpty(message: string) {
+    return (
+        <div className="box">
+            <div className="columns">
+                <div className="column is-full">
+                    <label>{message}</label>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 function renderGroups(
     groups: IGroup[],
     user_id: number,
     filter: number,
     is_loading: boolean,
     setGroup: React.Dispatch<React.SetStateAction<number>>,
-    setGroupRequest: React.Dispatch<React.SetStateAction<boolean>>,
+    setInviteTableState: React.Dispatch<React.SetStateAction<boolean>>,
     removeGroupHook: React.Dispatch<React.SetStateAction<number>>,
 ) {
-    if (groups.length === 0) {
+    if (is_loading) {
         return (
             <div style={{ margin: 'auto' }}>
                 <Loader
@@ -75,8 +93,15 @@ function renderGroups(
         )
     }
 
+    if (groups.length === 0) {
+        return renderEmpty(
+            `You don't own or belong to any group. Create your first group now!`,
+        )
+    }
+
     return groups.map((group, idx) => {
         const group_class = ['box']
+        console.log(filter === group.id, filter)
         if (filter === group.id) {
             group_class.push('is-active')
         }
@@ -87,8 +112,10 @@ function renderGroups(
                     <div
                         className={group_class.join(' ')}
                         onClick={() => {
-                            setGroupRequest(true)
-                            setGroup(group.id)
+                            if (group.id !== filter) {
+                                setInviteTableState(true)
+                                setGroup(group.id)
+                            }
                         }}
                     >
                         <span className="columns">
@@ -141,24 +168,115 @@ function renderGroups(
     })
 }
 
+function renderGroupInvites(
+    invites: IGroupInvite[],
+    group_filter: number,
+    is_loading: boolean,
+    removeGroupInviteHook: React.Dispatch<React.SetStateAction<number>>,
+) {
+    if (is_loading) {
+        return (
+            <div style={{ margin: 'auto' }}>
+                <Loader
+                    style={{
+                        fontSize: '5rem',
+                        margin: 'auto',
+                    }}
+                />
+            </div>
+        )
+    }
+
+    if (invites.length === 0 && group_filter > 0) {
+        return renderEmpty(`Get started by inviting some of your friends!`)
+    }
+
+    return invites.map((invite, idx) => {
+        const group_class = ['box', 'invite']
+
+        return (
+            <div className="columns group-list" key={`key-${idx}-group`}>
+                <div className="column is-full">
+                    <div className={group_class.join(' ')}>
+                        <span className="columns">
+                            <div className="column is-full invite-label">
+                                <label>Invitation ID:</label>
+                                <span>{invite.id}</span>
+                            </div>
+                        </span>
+
+                        <span className="columns">
+                            <div className="column is-full invite-label">
+                                <label>Name:</label>
+                                <span>
+                                    {invite.user_id.first_name}{' '}
+                                    {invite.user_id.last_name}
+                                </span>
+                            </div>
+                        </span>
+
+                        <span className="columns">
+                            <div className="column is-full invite-label">
+                                <label>Email:</label>
+                                <span className="email">
+                                    {invite.user_id.email}
+                                </span>
+                            </div>
+                        </span>
+
+                        <span className="columns">
+                            <div className="column is-2 invite-label">
+                                <button
+                                    className="button is-info"
+                                    disabled={is_loading}
+                                    onClick={() => {
+                                        removeGroupInviteHook(invite.id)
+                                    }}
+                                >
+                                    <span>Cancel Invite</span>
+                                </button>
+                            </div>
+                            <div className="column is-offset-8 is-2 invite-label">
+                                <label className="group-is-owner">
+                                    {invite.status}
+                                </label>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        )
+    })
+}
+
 function Groups() {
     const [cookies] = useCookies(['Authorization', 'UserID'])
     const [group_name, setGroups] = useState<string>('')
-    const [user, setInviteUser] = useState<string>('')
 
     const [group_filter, setGroupFilter] = useState<number>(0)
     const [id_to_delete, removeGroupHook] = useState<number>(0)
 
     const [add_new, createNewGroup] = useState<boolean>(false)
-    const [should_request, setGroupRequest] = useState<boolean>(false)
+
     const [table_state, setTableState] = useState<boolean>(false)
     const [is_loading, setLoading] = useState<boolean>(false)
+
+    const [group_table, setGroupTableContent] = useState<IGroup[]>([])
+
+    // Invite Related
+    const [invite_email, setInviteEmail] = useState<string>('')
+
+    const [invite_id_to_delete, removeGroupInviteHook] = useState<number>(0)
+
+    const [table_invite_state, setInviteTableState] = useState<boolean>(false)
+    const [invite_email_request, sendEmailInvite] = useState<boolean>(false)
+    const [is_invite_loading, setInviteLoading] = useState<boolean>(false)
+
+    const [invite_table, setInviteTableContent] = useState<IGroupInvite[]>([])
 
     const [field_errors, setErrors] = useState<{
         [key: string]: IFieldError | undefined
     }>({})
-
-    const [group_table, setGroupTableContent] = useState<IGroup[]>([])
 
     const addNewGroup = async () => {
         try {
@@ -240,6 +358,7 @@ function Groups() {
         }
     }
 
+    // Invite
     const retrieveInvites = async () => {
         try {
             const {
@@ -259,35 +378,115 @@ function Groups() {
                 }
             }
 
-            // setGroupTableContent(data)
+            setInviteTableContent(data)
         } catch (e) {
             Alert(e.message, 'error')
         } finally {
-            setGroupRequest(false)
+            setInviteLoading(false)
+            setInviteTableState(false)
+        }
+    }
+
+    const sendEmailInvites = async () => {
+        try {
+            const {
+                success,
+                data,
+                message,
+                errors,
+            } = await addGroupInviteService(
+                invite_email,
+                group_filter,
+                cookies['Authorization'],
+            )
+
+            if (!success || !data) {
+                throw {
+                    message,
+                    errors,
+                }
+            }
+
+            if (message) {
+                Alert(message, 'success')
+            }
+            setInviteTableContent([])
+        } catch (e) {
+            Alert(e.message, 'error')
+        } finally {
+            setInviteLoading(false)
+            setInviteTableState(true)
+        }
+    }
+
+    const cancelGroupInvite = async () => {
+        try {
+            removeGroupInviteHook(0)
+            const {
+                success,
+                data,
+                message,
+                errors,
+            } = await removeGroupInviteService(
+                invite_id_to_delete,
+                cookies['Authorization'],
+            )
+
+            if (!success || !data) {
+                throw {
+                    message,
+                    errors,
+                }
+            }
+
+            if (message) {
+                Alert(message, 'success')
+            }
+            setInviteTableContent([])
+        } catch (e) {
+            if (e.errors) {
+                setErrors(e.errors)
+            }
+            Alert(e.message, 'error')
+        } finally {
+            setInviteLoading(false)
+            setInviteTableState(true)
         }
     }
 
     React.useEffect(() => {
         if (!table_state) {
             setLoading(true)
-            retrieveGroups()
-        }
-
-        if (should_request) {
-            setLoading(true)
-            retrieveInvites()
+            retrieveGroups().then()
         }
 
         if (add_new) {
             setLoading(true)
             createNewGroup(false)
-            addNewGroup()
+            addNewGroup().then()
         }
 
         if (id_to_delete > 0) {
             setLoading(true)
             removeGroupHook(0)
-            removeGroup()
+            removeGroup().then()
+        }
+
+        if (table_invite_state) {
+            setInviteLoading(true)
+            setInviteTableState(false)
+            retrieveInvites().then()
+        }
+
+        if (invite_email_request) {
+            setInviteLoading(true)
+            sendEmailInvite(false)
+            sendEmailInvites().then()
+        }
+
+        if (invite_id_to_delete > 0) {
+            setInviteLoading(true)
+            cancelGroupInvite().then()
         }
     })
 
@@ -329,7 +528,7 @@ function Groups() {
                             group_filter,
                             is_loading,
                             setGroupFilter,
-                            setGroupRequest,
+                            setInviteTableState,
                             removeGroupHook,
                         )}
                     </div>
@@ -341,20 +540,36 @@ function Groups() {
                                         type="text"
                                         field_error={field_errors.invites}
                                         label="Invites"
-                                        value={user}
+                                        value={invite_email}
                                         icon="fas fa-user-plus"
                                         onChange={e =>
-                                            setInviteUser(e.target.value)
+                                            setInviteEmail(e.target.value)
                                         }
                                     />
                                 </div>
                                 <div className="column is-2 btn-container">
-                                    <button className="button is-info">
+                                    <button
+                                        className="button is-info"
+                                        onClick={() => {
+                                            sendEmailInvite(true)
+                                        }}
+                                        disabled={
+                                            group_filter === 0 ||
+                                            is_loading ||
+                                            is_invite_loading
+                                        }
+                                    >
                                         <i className="fas fa-plus" />
                                     </button>
                                 </div>
                             </div>
                         </div>
+                        {renderGroupInvites(
+                            invite_table,
+                            group_filter,
+                            is_invite_loading,
+                            removeGroupInviteHook,
+                        )}
                     </div>
                 </div>
             </div>

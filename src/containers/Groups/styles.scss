@@ -11,9 +11,14 @@
 
     .group-list {
         .box {
-            &.is-active,
-            &:hover {
+            &.is-active {
                 box-shadow: 0 0 0.4rem 0.2rem #3298dc;
+            }
+
+            &:not(.invite) {
+                &:hover {
+                    box-shadow: 0 0 0.4rem 0.2rem #3298dc;
+                }
             }
         }
 
@@ -26,6 +31,22 @@
             span {
                 font-weight: 400;
                 text-transform: capitalize;
+            }
+        }
+
+        .invite-label {
+            color: #3298dc;
+            > label {
+                margin: 0.5rem;
+                font-weight: 800;
+            }
+
+            span {
+                font-weight: 400;
+                text-transform: capitalize;
+                &.email {
+                    text-transform: lowercase;
+                }
             }
         }
     }
