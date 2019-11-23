@@ -1,0 +1,25 @@
+#Groups {
+    margin: 24px 0 0 0;
+    .container {
+        max-width: 85%;
+    }
+
+    .btn-container {
+        margin: auto;
+        padding: 1.1rem 0 0 0;
+    }
+
+    .group-list {
+        .box {
+            &.is-active,
+            &:hover {
+                box-shadow: 0 0 0.4rem 0.2rem #3298dc;
+            }
+        }
+
+        .group-label {
+            margin: 0.5rem;
+            font-weight: 800;
+        }
+    }
+}

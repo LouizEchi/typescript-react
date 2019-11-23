@@ -2,16 +2,12 @@ import Axios, { AxiosResponse } from 'axios'
 
 import Config from '@src/config'
 
+import { IResponse } from './types'
+
 import { handleError } from './'
-export interface IResponse<T> {
-    success: boolean
-    data: T
-    message?: string
-    errors?: any
-    error?: any
-}
 
 interface ILogin {
+    user_id: number
     auth_token: string
 }
 

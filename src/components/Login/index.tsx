@@ -44,6 +44,9 @@ function Login() {
             removeCookies('Authorization')
             setCookies('Authorization', `Bearer ${data.auth_token}`)
 
+            removeCookies('UserID')
+            setCookies('UserID', data.user_id)
+
             Alert(message || '', 'success')
             setErrors({})
             setLoginState(true)
