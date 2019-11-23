@@ -44,9 +44,7 @@ export async function createEventService(
     }
 }
 
-export async function test(
-    email: string,
-): Promise<IResponse<IEvent | null>> {
+export async function test(email: string): Promise<IResponse<IEvent | null>> {
     try {
         const data = {
             email,
