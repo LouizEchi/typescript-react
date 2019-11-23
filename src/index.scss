@@ -25,6 +25,8 @@ $body-background-color: $beige-lighter;
 $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
+$tabs-link-hover-color: #3298dc;
+$tabs-link-active-color: #3298dc;
 
 // Import only what you need from Bulma
 @import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
