@@ -25,10 +25,10 @@ function Register() {
             last_name,
             email,
             password,
-            company
+            company,
         }
 
-        await API.post('/register', data).then((response) => {
+        await API.post('/register', data).then(response => {
             if (response.status === 200) {
                 setShowMessage(true)
                 setInterval(timer, 2000)
