@@ -27,65 +27,68 @@ $input-border-color: transparent;
 $input-shadow: none;
 
 // Import only what you need from Bulma
-@import '../node_modules/bulma/sass/utilities/_all.sass';
-@import '../node_modules/bulma/sass/base/_all.sass';
-@import '../node_modules/bulma/sass/elements/_all.sass';
-@import '../node_modules/bulma/sass/components/_all.sass';
-@import '../node_modules/bulma/sass/layout/_all.sass';
-@import '../node_modules/bulma/sass/form/_all.sass';
+@import '../node_modules/bulma/bulma.sass';
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
 }
 
 div.wiw-input {
-  padding: 10px;
+    padding: 10px;
 
-  input {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    margin-left: 10px;
-    background-color: transparent;
-    height: 25px;
-    padding: 5px;
-  }
+    input {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        margin-left: 10px;
+        background-color: transparent;
+        height: 25px;
+        padding: 5px;
+    }
 
-  input:focus {
-    outline-color: transparent;
-
-  }
+    input:focus {
+        outline-color: transparent;
+    }
 }
 
 div.wiw-button {
-  padding: 10px;
-  width: 90px;
-  border: 2px solid #363bad;
+    padding: 10px;
+    width: 90px;
+    border: 2px solid #363bad;
 
-  button {
-    position: relative;
-    background:none;
-    outline: none;
-    border:none;
-  }
+    button {
+        position: relative;
+        background: none;
+        outline: none;
+        border: none;
+    }
 
-  &:active {
-      background-color: darken(#fafaff, 10);
-  }
+    &:active {
+        background-color: darken(#fafaff, 10);
+    }
 }
 
 div.modal {
-  -webkit-box-shadow: -2px 1px 28px 1px rgba(0,0,0,0.75);
-  -moz-box-shadow: -2px 1px 28px 1px rgba(0,0,0,0.75);
-  box-shadow: -2px 1px 28px 1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: -2px 1px 28px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -2px 1px 28px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: -2px 1px 28px 1px rgba(0, 0, 0, 0.75);
+}
+
+label {
+    &.error {
+        color: #c00;
+    }
+    &.form {
+        text-transform: uppercase;
+    }
 }
