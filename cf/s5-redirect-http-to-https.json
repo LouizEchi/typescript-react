@@ -1,0 +1,6 @@
+{
+    "RedirectAllRequestsTo": {
+        "HostName": "wiw.goc",
+        "Protocol": "https"
+    }
+}
