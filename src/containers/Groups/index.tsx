@@ -121,7 +121,10 @@ function Groups() {
                 data,
                 message,
                 errors,
-            } = await retrieveGroupInvites(filter, cookies['Authorization'])
+            } = await retrieveGroupInvites(
+                group_filter,
+                cookies['Authorization'],
+            )
 
             if (!success || !data) {
                 throw {
