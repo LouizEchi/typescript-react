@@ -8,7 +8,7 @@ import Dashboard from '@src/containers/Dashboard'
 
 import Events from '@src/components/Events'
 
-import Groups from '@src/components/Groups'
+import Groups from '@src/containers/Groups'
 
 import Friends from '@src/components/Friends'
 

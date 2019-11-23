@@ -48,6 +48,7 @@
     "devDependencies": {
         "@commitlint/cli": "^8.2.0",
         "@commitlint/config-conventional": "^8.2.0",
+        "@fortawesome/fontawesome-free": "^5.11.2",
         "commitlint": "^8.2.0",
         "customize-cra": "^0.9.1",
         "cz-conventional-changelog": "^3.0.2",
