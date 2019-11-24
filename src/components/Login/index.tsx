@@ -74,7 +74,7 @@ function Login() {
 
     React.useEffect(() => {
         if (login_state && cookie['Authorization']) {
-            window.location.assign('/Dashboard/Event')
+            window.location.assign('/Dashboard/Events')
         }
 
         if (submit) {

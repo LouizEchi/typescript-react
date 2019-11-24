@@ -1,0 +1,63 @@
+#Social {
+    margin: 24px 0 0 0;
+    .container {
+        max-width: 85%;
+    }
+
+    .header {
+        text-transform: uppercase;
+        font-weight: 800;
+        color: #757763;
+    }
+
+    .btn-container {
+        margin: auto;
+        padding: 1.2rem 0 0 0;
+    }
+
+    .btn-invite-container {
+        margin: 0 0.5rem 0 0.5rem;
+    }
+
+    .group-list {
+        .box {
+            &.is-active {
+                box-shadow: 0 0 0.4rem 0.2rem #3298dc;
+            }
+
+            &:not(.invite) {
+                &:hover {
+                    box-shadow: 0 0 0.4rem 0.2rem #3298dc;
+                }
+            }
+        }
+
+        .group-label {
+            > label {
+                margin: 0.5rem;
+                font-weight: 800;
+            }
+
+            span {
+                font-weight: 400;
+                text-transform: capitalize;
+            }
+        }
+
+        .invite-label {
+            color: #3298dc;
+            > label {
+                margin: 0.5rem;
+                font-weight: 800;
+            }
+
+            span {
+                font-weight: 400;
+                text-transform: capitalize;
+                &.email {
+                    text-transform: lowercase;
+                }
+            }
+        }
+    }
+}

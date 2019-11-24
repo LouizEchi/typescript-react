@@ -97,3 +97,70 @@ export async function retrieveGroupInvites(
         return handleError(e)
     }
 }
+
+export async function retrieveInviteService(
+    token: string,
+): Promise<IResponse<IGroupInvite[] | null>> {
+    try {
+        const request: AxiosResponse<IResponse<
+            IGroupInvite[]
+        >> = await Axios.get(`${Config.Api}/user-group-invites`, {
+            headers: {
+                Authorization: token,
+                'Access-Control-Allow-Origin': '*',
+            },
+        })
+
+        return request.data
+    } catch (e) {
+        return handleError(e)
+    }
+}
+
+export async function acceptGroupInviteService(
+    id: number,
+    token: string,
+): Promise<IResponse<IGroupInvite[] | null>> {
+    try {
+        const request: AxiosResponse<IResponse<
+            IGroupInvite[]
+        >> = await Axios.put(
+            `${Config.Api}/user-group-invites/accept/${id}`,
+            {},
+            {
+                headers: {
+                    Authorization: token,
+                    'Access-Control-Allow-Origin': '*',
+                },
+            },
+        )
+
+        return request.data
+    } catch (e) {
+        return handleError(e)
+    }
+}
+
+export async function declineGroupInviteService(
+    id: number,
+    token: string,
+): Promise<IResponse<IGroupInvite[] | null>> {
+    try {
+        const request: AxiosResponse<IResponse<
+            IGroupInvite[]
+        >> = await Axios.put(
+            `${Config.Api}/user-group-invites/decline/${id}`,
+            {},
+            {
+                headers: {
+                    Authorization: token,
+                    'Access-Control-Allow-Origin': '*',
+                },
+            },
+        )
+
+        return request.data
+    } catch (e) {
+        return handleError(e)
+    }
+}

@@ -94,7 +94,7 @@ function Events() {
 
     React.useEffect(() => {
         if (create_event_state) {
-            window.location.assign('/Dashboard/Event')
+            window.location.assign('/Dashboard/Events')
         }
 
         if (!table_state) {

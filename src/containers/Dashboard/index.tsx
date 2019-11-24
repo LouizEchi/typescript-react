@@ -59,12 +59,11 @@ function Dashboard() {
 
                         <Link
                             className={
-                                window.location.pathname ===
-                                '/Dashboard/Friends'
+                                window.location.pathname === '/Dashboard/Social'
                                     ? 'navbar-item is-active'
                                     : 'navbar-item'
                             }
-                            to={'/Dashboard/Friends'}
+                            to={'/Dashboard/Social'}
                         >
                             <i className="fas fa-comment" />
                         </Link>

@@ -6,11 +6,11 @@ import LandingPage from '@src/containers/LandingPage'
 
 import Dashboard from '@src/containers/Dashboard'
 
+import Social from '@src/containers/Social'
+
 import Events from '@src/components/Events'
 
 import Groups from '@src/containers/Groups'
-
-import Friends from '@src/components/Friends'
 
 function Routes() {
     return (
@@ -20,7 +20,7 @@ function Routes() {
                 <Route path="/Dashboard" component={Dashboard} />
                 <Route path="/Dashboard/Events" component={Events} />
                 <Route path="/Dashboard/Groups" component={Groups} />
-                <Route path="/Dashboard/Friends" component={Friends} />
+                <Route path="/Dashboard/Social" component={Social} />
             </Router>
         </div>
     )

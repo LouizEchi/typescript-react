@@ -226,15 +226,19 @@ function renderGroupInvites(
 
                         <span className="columns">
                             <div className="column is-2 invite-label">
-                                <button
-                                    className="button is-info"
-                                    disabled={is_loading}
-                                    onClick={() => {
-                                        removeGroupInviteHook(invite.id)
-                                    }}
-                                >
-                                    <span>Cancel Invite</span>
-                                </button>
+                                {invite.status === 'Pending' ? (
+                                    <button
+                                        className="button is-info"
+                                        disabled={is_loading}
+                                        onClick={() => {
+                                            removeGroupInviteHook(invite.id)
+                                        }}
+                                    >
+                                        <span>Cancel Invite</span>
+                                    </button>
+                                ) : (
+                                    ''
+                                )}
                             </div>
                             <div className="column is-offset-8 is-2 invite-label">
                                 <label className="group-is-owner">
