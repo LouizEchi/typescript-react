@@ -18,6 +18,7 @@ import {
     addGroupInviteService,
     retrieveGroupInvites,
     removeGroupInviteService,
+    leaveGroupService,
 } from '@src/services/group-invites'
 
 import './styles.scss'
@@ -79,6 +80,7 @@ function renderGroups(
     setGroup: React.Dispatch<React.SetStateAction<number>>,
     setInviteTableState: React.Dispatch<React.SetStateAction<boolean>>,
     removeGroupHook: React.Dispatch<React.SetStateAction<number>>,
+    leaveGroupHook: React.Dispatch<React.SetStateAction<number>>,
 ) {
     if (is_loading) {
         return (
@@ -159,7 +161,24 @@ function renderGroups(
                                 </div>
                             </span>
                         ) : (
-                            ''
+                            <span className="columns">
+                                <div className="column is-2 group-label">
+                                    <button
+                                        className="button is-danger"
+                                        disabled={is_loading}
+                                        onClick={() => {
+                                            leaveGroupHook(group.id)
+                                        }}
+                                    >
+                                        <span>Leave</span>
+                                    </button>
+                                </div>
+                                <div className="column is-offset-8 is-2 group-label">
+                                    <label className="group-is-owner">
+                                        MEMBER
+                                    </label>
+                                </div>
+                            </span>
                         )}
                     </div>
                 </div>
@@ -259,6 +278,7 @@ function Groups() {
 
     const [group_filter, setGroupFilter] = useState<number>(0)
     const [id_to_delete, removeGroupHook] = useState<number>(0)
+    const [id_to_leave, leaveGroupHook] = useState<number>(0)
 
     const [add_new, createNewGroup] = useState<boolean>(false)
 
@@ -315,6 +335,35 @@ function Groups() {
         try {
             const { success, data, message, errors } = await removeGroupService(
                 id_to_delete,
+                cookies['Authorization'],
+            )
+
+            if (!success || !data) {
+                throw {
+                    message,
+                    errors,
+                }
+            }
+
+            setGroupTableContent([])
+            if (message) {
+                Alert(message, 'success')
+            }
+        } catch (e) {
+            if (e.errors) {
+                setErrors(e.errors)
+            }
+            Alert(e.message, 'error')
+        } finally {
+            setTableState(false)
+            setLoading(false)
+        }
+    }
+
+    const leaveGroup = async () => {
+        try {
+            const { success, data, message, errors } = await leaveGroupService(
+                id_to_leave,
                 cookies['Authorization'],
             )
 
@@ -476,6 +525,12 @@ function Groups() {
             removeGroup().then()
         }
 
+        if (id_to_leave > 0) {
+            setLoading(true)
+            leaveGroupHook(0)
+            leaveGroup().then()
+        }
+
         if (table_invite_state) {
             setInviteLoading(true)
             setInviteTableState(false)
@@ -534,6 +589,7 @@ function Groups() {
                             setGroupFilter,
                             setInviteTableState,
                             removeGroupHook,
+                            leaveGroupHook,
                         )}
                     </div>
                     <div className="column is-half-desktop is-full-mobile">

@@ -164,3 +164,26 @@ export async function declineGroupInviteService(
         return handleError(e)
     }
 }
+
+export async function leaveGroupService(
+    id: number,
+    token: string,
+): Promise<IResponse<IGroupInvite[] | null>> {
+    try {
+        const request: AxiosResponse<IResponse<IGroupInvite[]>> = await Axios.put(
+            `${Config.Api}/user-group-invites/${id}/leave`,
+            {},
+            {
+                headers: {
+                    Authorization: token,
+                    'Access-Control-Allow-Origin': '*',
+                },
+            },
+        )
+
+        return request.data
+    } catch (e) {
+        return handleError(e)
+    }
+}
+
