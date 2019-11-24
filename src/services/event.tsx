@@ -4,8 +4,6 @@ import Config from '@src/config'
 
 import { handleError } from './'
 
-import { IGroup } from '@src/services/groups'
-
 export interface IResponse<T> {
     success: boolean
     data: T
@@ -20,12 +18,14 @@ interface IEvent {
 
 export async function createEventService(
     event_name: string,
-    user_group_id: IGroup[],
-    auth_token: string,
+    user_group_id: any,
+    token: string,
 ): Promise<IResponse<IEvent | null>> {
     try {
         const data = {
             event_name,
+            user_group_id,
+            token
         }
 
         const request: AxiosResponse<IResponse<IEvent>> = await Axios.post(

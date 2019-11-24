@@ -15,6 +15,9 @@ import { IGroup, listGroups } from '@src/services/groups'
 export interface ICreateEvent {
     event_name?: {
         message: string
+    },
+    user_group_selected_id?: {
+        message: string
     }
 }
 
@@ -32,6 +35,8 @@ function Events() {
     const [create_event_state, setCreateEventState] = useState<boolean>(false)
 
     const [event_name, setEventName] = useState<string>('')
+
+    const [user_group_selected_id, setUserSelectedID] = useState<any>('')
 
     const [user_group_id, setUserGroupID] = useState<IGroup[]>([])
 
@@ -66,7 +71,7 @@ function Events() {
         try {
             const { success, data, message, errors } = await createEventService(
                 event_name,
-                user_group_id,
+                user_group_selected_id,
                 cookies['Authorization'],
             )
             if (!success || !data) {
@@ -144,6 +149,9 @@ function Events() {
     ]
     const [display_event, setDisplayEvent] = useState(seedEvent[0])
 
+    console.log(user_group_id);
+    console.log(is_loading);
+
     return (
         <div id="Events">
             <div className="container">
@@ -170,6 +178,7 @@ function Events() {
                                                         <option
                                                             key={index}
                                                             value={item.id}
+                                                            onChange={e => setUserSelectedID(item.id)}
                                                         >
                                                             {item.group_name}
                                                         </option>
